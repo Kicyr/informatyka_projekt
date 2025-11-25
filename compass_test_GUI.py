@@ -1,4 +1,5 @@
 import sys
+import os
 import pandas as pd
 import datetime
 from PyQt5.QtCore import  Qt
@@ -128,6 +129,8 @@ class MainWindow(QWidget):
                 df = pd.read_csv("data/history.csv")
                 df_row.to_csv("data/history.csv",mode='a',index=True, header=False)
             except FileNotFoundError:
+                if not os.path.exists("data/"):
+                    os.mkdir("data/")
                 df_row.to_csv("data/history.csv",index=True, header=True)
         except Exception as e:
             print(e)
